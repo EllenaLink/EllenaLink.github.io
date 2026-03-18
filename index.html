@@ -1,0 +1,1786 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ellena Link · Portfolio</title>
+  <style>
+    :root {
+      --terracotta: #C77465;
+      --peach: #E8B59B;
+      --cream: #EEDAC2;
+      --sage: #A3A38B;
+      --dark: #2e2a26;
+      --mid: #5a5248;
+      --light-sage: #d4d4c0;
+      --white: #fff;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Georgia', serif;
+      background: var(--cream);
+      color: var(--dark);
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='20' cy='20' r='1.5' fill='%23C77465' opacity='0.02'/%3E%3Ccircle cx='60' cy='40' r='1' fill='%23C77465' opacity='0.02'/%3E%3Ccircle cx='40' cy='60' r='1.2' fill='%23A3A38B' opacity='0.05'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Fixed border neurons */
+    .border-deco {
+      position: fixed;
+      pointer-events: none;
+      z-index: 1;
+      opacity: 0.18;
+    }
+
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 100;
+      background: rgba(238, 218, 194, 0.93);
+      backdrop-filter: blur(10px);
+      padding: 14px 48px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--peach);
+    }
+
+    .nav-name {
+      font-size: .95rem;
+      font-weight: bold;
+      color: var(--terracotta);
+      letter-spacing: 1px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--mid);
+      font-family: 'Arial', sans-serif;
+      font-size: .75rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      transition: color .3s;
+    }
+
+    .nav-links a:hover {
+      color: var(--terracotta);
+    }
+
+    #hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr;
+      align-items: center;
+      padding: 100px 8vw 60px;
+      gap: 48px;
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg, #f5ebe2 0%, var(--cream) 40%, #e8ddd4 70%, #e2d4c4 100%);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 700px;
+    }
+
+    .hero-eyebrow {
+      font-family: 'Arial', sans-serif;
+      font-size: .72rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--terracotta);
+      margin-bottom: 18px;
+    }
+
+    .hero-name {
+      font-size: clamp(2.4rem, 5vw, 4.8rem);
+      line-height: 1.1;
+      color: var(--dark);
+      font-weight: normal;
+      margin-bottom: 22px;
+    }
+
+    .hero-name span {
+      color: var(--terracotta);
+    }
+
+    .hero-tagline {
+      font-size: clamp(.95rem, 1.6vw, 1.2rem);
+      color: var(--mid);
+      max-width: 560px;
+      line-height: 1.8;
+      margin-bottom: 36px;
+      font-style: italic;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 12px 28px;
+      border-radius: 40px;
+      font-family: 'Arial', sans-serif;
+      font-size: .78rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: all .3s;
+      cursor: pointer;
+      border: none;
+      display: inline-block;
+    }
+
+    .btn-primary {
+      background: var(--terracotta);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: #b5614f;
+      transform: translateY(-2px);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--terracotta);
+      border: 1.5px solid var(--terracotta);
+    }
+
+    .btn-outline:hover {
+      background: var(--terracotta);
+      color: white;
+      transform: translateY(-2px);
+    }
+
+    .ap-wave {
+      position: absolute;
+      bottom: 40px;
+      left: 0;
+      width: 100%;
+      height: 70px;
+      z-index: 1;
+      opacity: .35;
+    }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      color: var(--sage);
+      font-family: 'Arial', sans-serif;
+      font-size: .68rem;
+      letter-spacing: 2px;
+      z-index: 3;
+    }
+
+    .scroll-line {
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, var(--sage), transparent);
+      animation: scrollPulse 2s infinite;
+    }
+
+    @keyframes scrollPulse {
+
+      0%,
+      100% {
+        opacity: .3
+      }
+
+      50% {
+        opacity: 1
+      }
+    }
+
+    section {
+      padding: 96px 8vw;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ── SPACING: tighter gap between label → title → content ── */
+    .section-label {
+      font-family: 'Arial', sans-serif;
+      font-size: .68rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--terracotta);
+      margin-bottom: 6px;
+      /* was 10px */
+    }
+
+    .section-title {
+      font-size: clamp(1.7rem, 3vw, 2.6rem);
+      color: var(--dark);
+      font-weight: normal;
+      margin-bottom: 28px;
+      /* was 46px */
+      line-height: 1.25;
+    }
+
+    .section-title em {
+      color: var(--terracotta);
+      font-style: normal;
+    }
+
+    .eeg-strip {
+      width: 100%;
+      overflow: hidden;
+      height: 54px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .eeg-strip svg {
+      width: 200%;
+      height: 100%;
+      animation: eegScroll 8s linear infinite;
+    }
+
+    @keyframes eegScroll {
+      from {
+        transform: translateX(0)
+      }
+
+      to {
+        transform: translateX(-50%)
+      }
+    }
+
+    .synapse-divider {
+      display: flex;
+      align-items: center;
+      padding: 5px 1vw;
+      position: relative;
+      z-index: 2;
+      overflow: hidden;
+    }
+
+    .synapse-divider svg {
+      width: 100%;
+      height: 80px;
+    }
+
+    .neuron-deco {
+      position: absolute;
+      opacity: .40;
+      pointer-events: none;
+    }
+
+    #story {
+      background: white;
+    }
+
+    #story::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='30' cy='30' r='1.5' fill='%23C77465' opacity='0.06'/%3E%3C/svg%3E");
+      z-index: 0;
+    }
+
+    .story-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 56px;
+      align-items: start;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ── FONT SIZE: increased body/content text ── */
+    .story-text p {
+      font-size: 1.05rem;
+      /* was 1rem */
+      line-height: 1.9;
+      color: var(--mid);
+      margin-bottom: 18px;
+    }
+
+    .story-text p strong {
+      color: var(--terracotta);
+    }
+
+    .stat-card {
+      background: var(--cream);
+      border-radius: 16px;
+      padding: 24px 28px;
+      border-left: 4px solid var(--terracotta);
+      margin-bottom: 16px;
+    }
+
+    .stat-card .stat-num {
+      font-size: 1.9rem;
+      color: var(--terracotta);
+      font-weight: bold;
+      font-family: 'Arial', sans-serif;
+    }
+
+    .stat-card .stat-label {
+      font-family: 'Arial', sans-serif;
+      font-size: .82rem;
+      /* was .74rem */
+      letter-spacing: 1px;
+      color: var(--mid);
+      text-transform: uppercase;
+      margin-top: 3px;
+    }
+
+    .hms-badge {
+      background: linear-gradient(135deg, var(--terracotta), #b5614f);
+      border-radius: 16px;
+      padding: 26px 28px;
+      color: white;
+      margin-bottom: 16px;
+    }
+
+    .hms-badge .badge-title {
+      font-size: 1.05rem;
+      /* was 1rem */
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    .hms-badge .badge-sub {
+      font-size: .88rem;
+      /* was .8rem */
+      opacity: .9;
+      line-height: 1.6;
+    }
+
+    .spike-band {
+      width: 100%;
+      height: 40px;
+      position: relative;
+      overflow: hidden;
+      z-index: 2;
+    }
+
+    #experience {
+      background: var(--cream);
+    }
+
+    .timeline {
+      position: relative;
+      padding-left: 44px;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 10px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: repeating-linear-gradient(to bottom, var(--terracotta) 0px, var(--terracotta) 10px, transparent 10px, transparent 18px);
+    }
+
+    .tl-item {
+      position: relative;
+      margin-bottom: 52px;
+    }
+
+    .tl-dot {
+      position: absolute;
+      left: -44px;
+      top: 4px;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--terracotta);
+      border: 3px solid var(--cream);
+      box-shadow: 0 0 0 2px var(--terracotta);
+    }
+
+    .tl-dot.sage {
+      background: var(--sage);
+      box-shadow: 0 0 0 2px var(--sage);
+    }
+
+    .tl-dot.incoming {
+      background: white;
+      border-color: var(--terracotta);
+      animation: synPulse 2s infinite;
+    }
+
+    @keyframes synPulse {
+
+      0%,
+      100% {
+        box-shadow: 0 0 0 2px var(--terracotta), 0 0 0 5px rgba(199, 116, 101, .0)
+      }
+
+      50% {
+        box-shadow: 0 0 0 2px var(--terracotta), 0 0 0 9px rgba(199, 116, 101, .25)
+      }
+    }
+
+    .tl-date {
+      font-family: 'Arial', sans-serif;
+      font-size: .76rem;
+      /* was .7rem */
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--terracotta);
+      margin-bottom: 4px;
+    }
+
+    .tl-role {
+      font-size: 1.2rem;
+      /* was 1.15rem */
+      font-weight: bold;
+      color: var(--dark);
+      margin-bottom: 3px;
+    }
+
+    .tl-org {
+      font-size: .95rem;
+      /* was .88rem */
+      color: var(--sage);
+      font-style: italic;
+      margin-bottom: 10px;
+      /* was 12px */
+    }
+
+    .tl-bullets {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    .tl-bullets li {
+      font-size: .95rem;
+      /* was .88rem */
+      line-height: 1.6;
+      color: var(--mid);
+      padding-left: 18px;
+      position: relative;
+    }
+
+    .tl-bullets li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: var(--peach);
+    }
+
+    .incoming-tag {
+      display: inline-block;
+      background: var(--terracotta);
+      color: white;
+      font-family: 'Arial', sans-serif;
+      font-size: .62rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 20px;
+      margin-bottom: 6px;
+      /* was 8px */
+    }
+
+    #projects {
+      background: white;
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(295px, 1fr));
+      gap: 26px;
+    }
+
+    .proj-card {
+      border-radius: 20px;
+      padding: 30px;
+      position: relative;
+      overflow: hidden;
+      transition: transform .3s, box-shadow .3s;
+      border: 1px solid var(--peach);
+      background: var(--cream);
+    }
+
+    .proj-card::after {
+      content: '';
+      position: absolute;
+      top: -30px;
+      right: -30px;
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      border: 2px solid var(--peach);
+      opacity: .4;
+      pointer-events: none;
+    }
+
+    .proj-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 48px rgba(199, 116, 101, .15);
+    }
+
+    .proj-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(to right, var(--terracotta), var(--peach));
+    }
+
+    .proj-card.active-project {
+      border: 1.5px solid var(--terracotta);
+      background: linear-gradient(160deg, #fff9f5, var(--cream));
+    }
+
+    .active-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--terracotta);
+      color: white;
+      font-family: 'Arial', sans-serif;
+      font-size: .62rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 20px;
+      margin-bottom: 8px;
+    }
+
+    .active-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: white;
+      animation: blink 1.2s infinite;
+    }
+
+    @keyframes blink {
+
+      0%,
+      100% {
+        opacity: 1
+      }
+
+      50% {
+        opacity: .2
+      }
+    }
+
+    .proj-tag {
+      font-family: 'Arial', sans-serif;
+      font-size: .68rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--sage);
+      margin-bottom: 8px;
+      /* was 10px */
+    }
+
+    .proj-title {
+      font-size: 1.05rem;
+      font-weight: bold;
+      color: var(--dark);
+      margin-bottom: 8px;
+      /* was 10px */
+      line-height: 1.4;
+    }
+
+    .proj-tech {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-bottom: 11px;
+      /* was 13px */
+    }
+
+    .tech-chip {
+      background: white;
+      border: 1px solid var(--peach);
+      border-radius: 20px;
+      padding: 2px 9px;
+      font-family: 'Arial', sans-serif;
+      font-size: .72rem;
+      /* was .68rem */
+      color: var(--terracotta);
+    }
+
+    .proj-bullets {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .proj-bullets li {
+      font-size: .9rem;
+      /* was .82rem */
+      line-height: 1.55;
+      color: var(--mid);
+      padding-left: 14px;
+      position: relative;
+    }
+
+    .proj-bullets li::before {
+      content: '·';
+      position: absolute;
+      left: 3px;
+      color: var(--terracotta);
+      font-size: 1.2rem;
+      line-height: 1;
+    }
+
+    .proj-date {
+      font-family: 'Arial', sans-serif;
+      font-size: .73rem;
+      /* was .68rem */
+      color: var(--sage);
+      margin-top: 12px;
+    }
+
+    #skills {
+      background: var(--cream);
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 20px;
+    }
+
+    .skill-group {
+      background: white;
+      border-radius: 16px;
+      padding: 26px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .skill-group::before {
+      content: '';
+      position: absolute;
+      bottom: -20px;
+      right: -20px;
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: var(--cream);
+      opacity: .8;
+    }
+
+    .skill-group-title {
+      font-family: 'Arial', sans-serif;
+      font-size: .72rem;
+      /* was .67rem */
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--terracotta);
+      margin-bottom: 12px;
+      /* was 14px */
+      padding-bottom: 9px;
+      border-bottom: 1px solid var(--cream);
+    }
+
+    .skill-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+    }
+
+    .skill-chip {
+      background: var(--cream);
+      border-radius: 8px;
+      padding: 5px 11px;
+      font-family: 'Arial', sans-serif;
+      font-size: .84rem;
+      /* was .76rem */
+      color: var(--mid);
+    }
+
+    #education {
+      background: white;
+    }
+
+    .edu-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+    }
+
+    .honor-list {
+      display: flex;
+      flex-direction: column;
+      gap: 11px;
+    }
+
+    .honor-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 13px 16px;
+      background: var(--cream);
+      border-radius: 10px;
+    }
+
+    .honor-icon {
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+
+    .honor-text {
+      font-size: .92rem;
+      /* was .85rem */
+      color: var(--mid);
+      line-height: 1.5;
+    }
+
+    .honor-text strong {
+      color: var(--dark);
+      display: block;
+      margin-bottom: 1px;
+    }
+
+    .course-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+    }
+
+    .course-tag {
+      background: var(--cream);
+      border: 1px solid var(--light-sage);
+      border-radius: 8px;
+      padding: 5px 11px;
+      font-family: 'Arial', sans-serif;
+      font-size: .8rem;
+      /* was .73rem */
+      color: var(--mid);
+    }
+
+    .activities-list {
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+      margin-top: 22px;
+      /* was 28px */
+    }
+
+    .activity-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: .92rem;
+      /* was .86rem */
+      color: var(--mid);
+    }
+
+    .activity-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--sage);
+      flex-shrink: 0;
+    }
+
+    .research-box {
+      margin-top: 28px;
+      /* was 36px */
+      padding: 26px;
+      background: var(--cream);
+      border-radius: 16px;
+      border-left: 4px solid var(--sage);
+    }
+
+    .research-box p {
+      font-size: .95rem;
+      /* was .88rem */
+      line-height: 1.85;
+      color: var(--mid);
+    }
+
+    footer {
+      background: var(--dark);
+      color: var(--peach);
+      padding: 56px 8vw;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 24px;
+      position: relative;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    footer::before {
+      content: '';
+      position: absolute;
+      top: -60px;
+      right: -60px;
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      border: 2px solid rgba(232, 181, 155, .1);
+    }
+
+    footer::after {
+      content: '';
+      position: absolute;
+      bottom: -40px;
+      left: 100px;
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      border: 2px solid rgba(199, 116, 101, .1);
+    }
+
+    .footer-name {
+      font-size: 1.4rem;
+      color: var(--cream);
+      margin-bottom: 6px;
+    }
+
+    .footer-sub {
+      font-size: .82rem;
+      color: var(--sage);
+      font-style: italic;
+      line-height: 1.6;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      color: var(--peach);
+      text-decoration: none;
+      font-family: 'Arial', sans-serif;
+      font-size: .75rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      transition: color .3s;
+    }
+
+    .footer-links a:hover {
+      color: var(--terracotta);
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(26px);
+      transition: opacity .65s ease, transform .65s ease;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    @media(max-width:900px) {
+      nav {
+        padding: 14px 20px;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      section {
+        padding: 70px 6vw;
+      }
+
+      #hero,
+      .story-grid,
+      .edu-grid {
+        grid-template-columns: 1fr;
+      }
+
+      footer {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .footer-links {
+        justify-content: center;
+      }
+
+      .border-deco {
+        display: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ── FIXED BORDER NEURONS ── -->
+
+  <!-- Top-left corner: branching neuron -->
+  <svg class="border-deco" style="top:50px;left:0;width:160px;height:220px;" viewBox="0 0 100 140"
+    xmlns="http://www.w3.org/2000/svg">
+    <circle cx="18" cy="70" r="10" fill="none" stroke="#C77465" stroke-width="1.5" />
+    <circle cx="18" cy="70" r="5" fill="#C77465" opacity=".5" />
+    <!-- axon right -->
+    <path d="M28,70 Q55,70 75,70 Q90,70 100,70" stroke="#C77465" stroke-width="1.5" fill="none" />
+    <!-- dendrites up -->
+    <path d="M18,60 Q12,40 8,20" stroke="#C77465" stroke-width="1.2" fill="none" />
+    <path d="M18,60 Q25,40 28,15" stroke="#C77465" stroke-width="1.2" fill="none" />
+    <path d="M18,60 Q5,55 0,45" stroke="#C77465" stroke-width="1" fill="none" />
+    <!-- dendrites down -->
+    <path d="M18,80 Q10,100 5,120" stroke="#A3A38B" stroke-width="1.2" fill="none" />
+    <path d="M18,80 Q28,100 30,125" stroke="#A3A38B" stroke-width="1.2" fill="none" />
+    <path d="M18,80 Q2,85 0,95" stroke="#A3A38B" stroke-width="1" fill="none" />
+    <!-- boutons -->
+    <circle cx="8" cy="20" r="2.5" fill="#C77465" opacity=".6" />
+    <circle cx="28" cy="15" r="2.5" fill="#C77465" opacity=".6" />
+    <circle cx="5" cy="120" r="2.5" fill="#A3A38B" opacity=".6" />
+    <circle cx="30" cy="125" r="2.5" fill="#A3A38B" opacity=".6" />
+  </svg>
+
+  <!-- Top-right corner: multipolar neuron -->
+  <svg class="border-deco" style="top:55px;right:0;width:170px;height:200px;" viewBox="0 0 110 130"
+    xmlns="http://www.w3.org/2000/svg">
+    <circle cx="90" cy="65" r="11" fill="none" stroke="#C77465" stroke-width="1.5" />
+    <circle cx="90" cy="65" r="5" fill="#C77465" opacity=".5" />
+    <path d="M80,65 Q50,65 20,65 Q5,65 0,65" stroke="#C77465" stroke-width="1.5" fill="none" />
+    <path d="M90,54 Q85,35 78,15" stroke="#C77465" stroke-width="1.2" fill="none" />
+    <path d="M90,54 Q100,35 105,12" stroke="#C77465" stroke-width="1.2" fill="none" />
+    <path d="M90,54 Q108,50 110,38" stroke="#C77465" stroke-width="1" fill="none" />
+    <path d="M90,76 Q84,98 78,118" stroke="#A3A38B" stroke-width="1.2" fill="none" />
+    <path d="M90,76 Q103,96 108,118" stroke="#A3A38B" stroke-width="1.2" fill="none" />
+    <path d="M90,76 Q110,82 110,95" stroke="#A3A38B" stroke-width="1" fill="none" />
+    <circle cx="78" cy="15" r="2.5" fill="#C77465" opacity=".6" />
+    <circle cx="105" cy="12" r="2.5" fill="#C77465" opacity=".6" />
+    <circle cx="78" cy="118" r="2.5" fill="#A3A38B" opacity=".6" />
+    <circle cx="108" cy="118" r="2.5" fill="#A3A38B" opacity=".6" />
+  </svg>
+
+  <!-- Left mid: vertical axon with collaterals -->
+  <svg class="border-deco" style="top:38%;left:0;width:80px;height:320px;" viewBox="0 0 50 200"
+    xmlns="http://www.w3.org/2000/svg">
+    <path d="M10,0 Q10,100 10,200" stroke="#C77465" stroke-width="1.5" fill="none" />
+    <path d="M10,40 Q30,35 45,30" stroke="#C77465" stroke-width="1" fill="none" />
+    <path d="M10,75 Q32,78 48,82" stroke="#C77465" stroke-width="1" fill="none" />
+    <path d="M10,115 Q28,108 44,102" stroke="#A3A38B" stroke-width="1" fill="none" />
+    <path d="M10,155 Q30,160 46,165" stroke="#A3A38B" stroke-width="1" fill="none" />
+    <circle cx="45" cy="30" r="3" fill="#C77465" opacity=".6" />
+    <circle cx="48" cy="82" r="3" fill="#C77465" opacity=".6" />
+    <circle cx="44" cy="102" r="3" fill="#A3A38B" opacity=".6" />
+    <circle cx="46" cy="165" r="3" fill="#A3A38B" opacity=".6" />
+    <!-- myelin sheaths -->
+    <ellipse cx="10" cy="58" rx="5" ry="9" fill="none" stroke="#E8B59B" stroke-width="1" opacity=".6" />
+    <ellipse cx="10" cy="95" rx="5" ry="9" fill="none" stroke="#E8B59B" stroke-width="1" opacity=".6" />
+    <ellipse cx="10" cy="133" rx="5" ry="9" fill="none" stroke="#E8B59B" stroke-width="1" opacity=".6" />
+    <ellipse cx="10" cy="172" rx="5" ry="9" fill="none" stroke="#E8B59B" stroke-width="1" opacity=".6" />
+  </svg>
+
+  <!-- Right mid: glial cell + processes -->
+  <svg class="border-deco" style="top:35%;right:0;width:90px;height:280px;" viewBox="0 0 55 180"
+    xmlns="http://www.w3.org/2000/svg">
+    <circle cx="45" cy="90" r="12" fill="none" stroke="#A3A38B" stroke-width="1.5" />
+    <circle cx="45" cy="90" r="5" fill="#A3A38B" opacity=".4" />
+    <path d="M45,78 Q42,55 38,35" stroke="#A3A38B" stroke-width="1.2" fill="none" />
+    <path d="M45,78 Q50,55 52,30" stroke="#C77465" stroke-width="1" fill="none" />
+    <path d="M55,88 Q55,70 55,50" stroke="#C77465" stroke-width="1" fill="none" />
+    <path d="M45,102 Q40,125 36,148" stroke="#A3A38B" stroke-width="1.2" fill="none" />
+    <path d="M45,102 Q52,122 55,145" stroke="#C77465" stroke-width="1" fill="none" />
+    <path d="M55,95 Q55,115 55,135" stroke="#C77465" stroke-width="1" fill="none" />
+    <circle cx="38" cy="35" r="2.5" fill="#A3A38B" opacity=".6" />
+    <circle cx="52" cy="30" r="2.5" fill="#C77465" opacity=".6" />
+    <circle cx="36" cy="148" r="2.5" fill="#A3A38B" opacity=".6" />
+    <circle cx="55" cy="145" r="2.5" fill="#C77465" opacity=".6" />
+  </svg>
+
+  <!-- Left lower: dendritic arbor -->
+  <svg class="border-deco" style="top:70%;left:0;width:100px;height:260px;" viewBox="0 0 65 165"
+    xmlns="http://www.w3.org/2000/svg">
+    <circle cx="15" cy="82" r="9" fill="none" stroke="#C77465" stroke-width="1.5" />
+    <circle cx="15" cy="82" r="4" fill="#C77465" opacity=".4" />
+    <path d="M15,73 Q10,55 6,35 Q3,20 0,5" stroke="#C77465" stroke-width="1.2" fill="none" />
+    <path d="M15,73 Q22,52 26,30 Q28,15 30,0" stroke="#C77465" stroke-width="1.2" fill="none" />
+    <path d="M6,35 Q-2,28 0,18" stroke="#C77465" stroke-width=".9" fill="none" />
+    <path d="M26,30 Q35,22 38,12" stroke="#C77465" stroke-width=".9" fill="none" />
+    <path d="M15,91 Q10,112 6,132 Q3,148 0,162" stroke="#A3A38B" stroke-width="1.2" fill="none" />
+    <path d="M15,91 Q22,110 25,132 Q28,148 30,163" stroke="#A3A38B" stroke-width="1.2" fill="none" />
+    <circle cx="0" cy="5" r="2" fill="#C77465" opacity=".5" />
+    <circle cx="30" cy="0" r="2" fill="#C77465" opacity=".5" />
+    <circle cx="38" cy="12" r="2" fill="#C77465" opacity=".5" />
+    <circle cx="0" cy="162" r="2" fill="#A3A38B" opacity=".5" />
+    <circle cx="30" cy="163" r="2" fill="#A3A38B" opacity=".5" />
+  </svg>
+
+  <!-- Right lower: bipolar neuron -->
+  <svg class="border-deco" style="top:68%;right:0;width:95px;height:240px;" viewBox="0 0 60 155"
+    xmlns="http://www.w3.org/2000/svg">
+    <circle cx="45" cy="77" r="10" fill="none" stroke="#C77465" stroke-width="1.5" />
+    <circle cx="45" cy="77" r="4.5" fill="#C77465" opacity=".4" />
+    <path d="M45,67 Q45,45 45,22 Q45,10 44,0" stroke="#C77465" stroke-width="1.5" fill="none" />
+    <path d="M44,22 Q35,15 28,8" stroke="#C77465" stroke-width="1" fill="none" />
+    <path d="M44,22 Q52,14 58,6" stroke="#C77465" stroke-width="1" fill="none" />
+    <path d="M45,87 Q45,108 45,132 Q45,144 44,154" stroke="#A3A38B" stroke-width="1.5" fill="none" />
+    <path d="M44,132 Q36,140 30,150" stroke="#A3A38B" stroke-width="1" fill="none" />
+    <path d="M44,132 Q52,140 58,150" stroke="#A3A38B" stroke-width="1" fill="none" />
+    <circle cx="28" cy="8" r="2.5" fill="#C77465" opacity=".6" />
+    <circle cx="58" cy="6" r="2.5" fill="#C77465" opacity=".6" />
+    <circle cx="30" cy="150" r="2.5" fill="#A3A38B" opacity=".6" />
+    <circle cx="58" cy="150" r="2.5" fill="#A3A38B" opacity=".6" />
+    <!-- nodes of ranvier -->
+    <ellipse cx="45" cy="44" rx="4" ry="8" fill="none" stroke="#E8B59B" stroke-width="1" opacity=".7" />
+    <ellipse cx="45" cy="110" rx="4" ry="8" fill="none" stroke="#E8B59B" stroke-width="1" opacity=".7" />
+  </svg>
+
+  <!-- Bottom-left: synaptic terminal cluster -->
+  <svg class="border-deco" style="bottom:0;left:0;width:160px;height:130px;" viewBox="0 0 100 80"
+    xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,80 Q20,60 35,45" stroke="#C77465" stroke-width="1.5" fill="none" />
+    <path d="M35,45 Q50,30 55,15" stroke="#C77465" stroke-width="1.3" fill="none" />
+    <path d="M35,45 Q45,50 60,55" stroke="#C77465" stroke-width="1.1" fill="none" />
+    <path d="M35,45 Q25,35 20,20" stroke="#A3A38B" stroke-width="1.1" fill="none" />
+    <circle cx="55" cy="15" r="5" fill="none" stroke="#C77465" stroke-width="1.2" />
+    <circle cx="60" cy="55" r="5" fill="none" stroke="#C77465" stroke-width="1.2" />
+    <circle cx="20" cy="20" r="4" fill="none" stroke="#A3A38B" stroke-width="1.2" />
+    <circle cx="55" cy="15" r="2" fill="#C77465" opacity=".5" />
+    <circle cx="60" cy="55" r="2" fill="#C77465" opacity=".5" />
+    <circle cx="20" cy="20" r="2" fill="#A3A38B" opacity=".5" />
+    <!-- vesicles near terminals -->
+    <circle cx="50" cy="10" r="2.5" fill="none" stroke="#C77465" stroke-width="1" opacity=".7" />
+    <circle cx="58" cy="8" r="2" fill="none" stroke="#C77465" stroke-width="1" opacity=".6" />
+    <circle cx="64" cy="50" r="2.5" fill="none" stroke="#C77465" stroke-width="1" opacity=".7" />
+    <circle cx="68" cy="58" r="2" fill="none" stroke="#C77465" stroke-width="1" opacity=".6" />
+  </svg>
+
+  <!-- Bottom-right: axon hillock + initial segment -->
+  <svg class="border-deco" style="bottom:0;right:0;width:170px;height:140px;" viewBox="0 0 110 90"
+    xmlns="http://www.w3.org/2000/svg">
+    <path d="M110,90 Q90,70 72,55" stroke="#C77465" stroke-width="1.5" fill="none" />
+    <circle cx="72" cy="55" r="10" fill="none" stroke="#C77465" stroke-width="1.5" />
+    <circle cx="72" cy="55" r="4.5" fill="#C77465" opacity=".4" />
+    <path d="M72,45 Q75,28 80,12" stroke="#C77465" stroke-width="1.2" fill="none" />
+    <path d="M72,45 Q60,30 52,15" stroke="#C77465" stroke-width="1.2" fill="none" />
+    <path d="M72,45 Q85,38 100,32" stroke="#A3A38B" stroke-width="1" fill="none" />
+    <path d="M62,55 Q45,50 28,45" stroke="#A3A38B" stroke-width="1.2" fill="none" />
+    <path d="M62,55 Q48,65 35,78" stroke="#A3A38B" stroke-width="1.1" fill="none" />
+    <circle cx="80" cy="12" r="2.5" fill="#C77465" opacity=".6" />
+    <circle cx="52" cy="15" r="2.5" fill="#C77465" opacity=".6" />
+    <circle cx="100" cy="32" r="2.5" fill="#A3A38B" opacity=".6" />
+    <circle cx="28" cy="45" r="2.5" fill="#A3A38B" opacity=".6" />
+    <circle cx="35" cy="78" r="2.5" fill="#A3A38B" opacity=".6" />
+  </svg>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-name">Ellena Link</div>
+    <ul class="nav-links">
+      <li><a href="#story">About</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="https://github.com/EllenaLink" target="_blank">GitHub</a></li>
+      <li><a href="https://linkedin.com/in/ellena-link-79b8a5282" target="_blank">LinkedIn</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <svg class="neuron-deco" style="top:-40px;right:-60px;width:420px;height:420px;" viewBox="0 0 200 200"
+      xmlns="http://www.w3.org/2000/svg">
+      <circle cx="100" cy="100" r="18" fill="#C77465" />
+      <circle cx="100" cy="100" r="26" fill="none" stroke="#C77465" stroke-width="1.5" />
+      <path d="M100,74 Q90,50 75,35" stroke="#C77465" stroke-width="1.5" fill="none" />
+      <path d="M100,74 Q110,50 125,32" stroke="#C77465" stroke-width="1.5" fill="none" />
+      <path d="M118,90 Q140,78 160,70" stroke="#C77465" stroke-width="1.5" fill="none" />
+      <path d="M118,110 Q142,120 162,130" stroke="#C77465" stroke-width="1.5" fill="none" />
+      <path d="M100,126 Q100,150 100,170" stroke="#C77465" stroke-width="1.5" fill="none" />
+      <path d="M82,90 Q60,80 40,72" stroke="#C77465" stroke-width="1.5" fill="none" />
+      <path d="M82,110 Q60,120 38,128" stroke="#C77465" stroke-width="1.5" fill="none" />
+      <path d="M100,118 Q100,148 85,168 Q70,185 60,195" stroke="#C77465" stroke-width="2" fill="none" />
+      <circle cx="60" cy="195" r="4" fill="#C77465" opacity=".6" />
+      <circle cx="75" cy="190" r="3" fill="#C77465" opacity=".5" />
+      <circle cx="75" cy="35" r="3" fill="#C77465" opacity=".5" />
+      <circle cx="125" cy="32" r="3" fill="#C77465" opacity=".5" />
+      <circle cx="160" cy="70" r="3" fill="#C77465" opacity=".5" />
+      <circle cx="162" cy="130" r="3" fill="#C77465" opacity=".5" />
+      <circle cx="100" cy="170" r="3" fill="#C77465" opacity=".5" />
+      <circle cx="40" cy="72" r="3" fill="#C77465" opacity=".5" />
+      <circle cx="38" cy="128" r="3" fill="#C77465" opacity=".5" />
+    </svg>
+    <!-- Extra hero deco: small neuron bottom-left -->
+    <svg class="neuron-deco" style="bottom:80px;left:2vw;width:180px;height:160px;opacity:.25" viewBox="0 0 110 100"
+      xmlns="http://www.w3.org/2000/svg">
+      <circle cx="55" cy="50" r="12" fill="none" stroke="#A3A38B" stroke-width="1.5" />
+      <circle cx="55" cy="50" r="5" fill="#A3A38B" opacity=".5" />
+      <path d="M55,38 Q50,18 44,2" stroke="#A3A38B" stroke-width="1.2" fill="none" />
+      <path d="M55,38 Q62,18 68,2" stroke="#C77465" stroke-width="1.2" fill="none" />
+      <path d="M67,50 Q88,44 105,40" stroke="#C77465" stroke-width="1.1" fill="none" />
+      <path d="M55,62 Q50,80 44,98" stroke="#A3A38B" stroke-width="1.2" fill="none" />
+      <path d="M55,62 Q62,80 68,98" stroke="#A3A38B" stroke-width="1.2" fill="none" />
+      <path d="M43,50 Q22,44 5,40" stroke="#C77465" stroke-width="1.1" fill="none" />
+      <circle cx="44" cy="2" r="2.5" fill="#A3A38B" opacity=".6" />
+      <circle cx="68" cy="2" r="2.5" fill="#C77465" opacity=".6" />
+      <circle cx="105" cy="40" r="2.5" fill="#C77465" opacity=".6" />
+      <circle cx="5" cy="40" r="2.5" fill="#C77465" opacity=".6" />
+      <circle cx="44" cy="98" r="2.5" fill="#A3A38B" opacity=".6" />
+      <circle cx="68" cy="98" r="2.5" fill="#A3A38B" opacity=".6" />
+    </svg>
+
+    <div class="hero-content">
+      <div class="hero-eyebrow">Data Science · Behavioral Neuroscience · Computation</div>
+      <h1 class="hero-name">Where the brain<br>meets <span>the algorithm.</span></h1>
+      <p class="hero-tagline">Motivated by understanding how brain circuits generate behavior and using
+        computational tools to turn that understanding into therapies that improve human health.</p>
+      <div class="hero-cta">
+        <a href="#experience" class="btn btn-primary">My Story</a>
+        <a href="https://github.com/EllenaLink" target="_blank" class="btn btn-outline">GitHub</a>
+        <a href="https://linkedin.com/in/ellena-link-79b8a5282" target="_blank" class="btn btn-outline">LinkedIn</a>
+      </div>
+    </div>
+    <svg class="ap-wave" viewBox="0 0 1200 70" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <polyline
+        points="0,45 120,45 160,45 175,10 185,62 200,42 215,42 340,42 380,42 395,8 405,60 420,40 435,40 560,40 600,40 615,6 625,62 640,40 660,40 780,40 820,40 835,8 845,62 860,40 880,40 1200,40"
+        fill="none" stroke="#C77465" stroke-width="2" stroke-linecap="round" />
+      <text x="4" y="44" font-family="Arial" font-size="8" fill="#C77465">−70mV</text>
+      <text x="4" y="14" font-family="Arial" font-size="8" fill="#C77465">+40mV</text>
+    </svg>
+    <div class="scroll-hint"><span>Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- EEG STRIP -->
+  <div class="eeg-strip" style="background:rgba(199,116,101,.06);">
+    <svg viewBox="0 0 1400 54" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <polyline
+        points="0,12 40,12 48,6 52,18 56,12 100,12 108,4 112,22 116,12 160,12 168,7 172,19 176,12 220,12 228,5 232,20 236,12 280,12 288,6 292,18 296,12 340,12 348,4 352,22 356,12 400,12 408,7 412,19 416,12 460,12 468,5 472,20 476,12 520,12 528,6 532,18 536,12 580,12 588,4 592,22 596,12 640,12 648,7 652,19 656,12 700,12 708,5 712,20 716,12 760,12"
+        stroke="#C77465" stroke-width="1" fill="none" opacity=".5" />
+      <path
+        d="M0,32 Q35,22 70,32 Q105,42 140,32 Q175,22 210,32 Q245,42 280,32 Q315,22 350,32 Q385,42 420,32 Q455,22 490,32 Q525,42 560,32 Q595,22 630,32 Q665,42 700,32 Q735,22 770,32 Q805,42 840,32 Q875,22 910,32 Q945,42 980,32 Q1015,22 1050,32 Q1085,42 1120,32 Q1155,22 1190,32 Q1225,42 1260,32 Q1295,22 1330,32 Q1365,42 1400,32"
+        stroke="#A3A38B" stroke-width="1" fill="none" opacity=".4" />
+      <polyline
+        points="0,46 10,44 14,48 18,44 22,48 26,44 30,48 40,46 50,44 54,48 58,44 62,48 66,44 70,48 80,46 90,44 94,48 98,44 102,48 106,44 110,48 120,46 130,44 134,48 138,44 142,48 146,44 150,48 160,46 170,44 174,48 178,44 182,48 186,44 190,48 200,46 210,44 214,48 218,44 222,48 226,44 230,48 240,46 250,44 254,48 258,44 262,48 266,44 270,48 280,46 290,44 294,48 298,44 302,48 306,44 310,48 320,46 330,44 334,48 338,44 342,48 346,44 350,48 360,46 370,44 374,48 378,44 382,48 386,44 390,48 400,46 410,44 414,48 418,44 422,48 426,44 430,48 440,46 450,44 454,48 458,44 462,48 466,44 470,48 480,46 490,44 494,48 498,44 502,48 506,44 510,48 520,46 530,44 534,48 538,44 542,48 546,44 550,48 560,46 570,44 574,48 578,44 582,48 586,44 590,48 600,46 610,44 614,48 618,44 622,48 626,44 630,48 640,46 650,44 654,48 658,44 662,48 666,44 670,48 680,46 690,44 694,48 698,44 702,48 706,44 710,48 720,46 730,44 734,48 738,44 742,48 746,44 750,48 760,46"
+        stroke="#E8B59B" stroke-width="1" fill="none" opacity=".4" />
+      <polyline
+        points="700,12 740,12 748,6 752,18 756,12 800,12 808,4 812,22 816,12 860,12 868,7 872,19 876,12 920,12 928,5 932,20 936,12 980,12 988,6 992,18 996,12 1040,12 1048,4 1052,22 1056,12 1100,12 1108,7 1112,19 1116,12 1160,12 1168,5 1172,20 1176,12 1220,12 1228,6 1232,18 1236,12 1280,12 1288,4 1292,22 1296,12 1340,12 1348,7 1352,19 1356,12 1400,12"
+        stroke="#C77465" stroke-width="1" fill="none" opacity=".5" />
+      <text x="2" y="11" font-family="Arial" font-size="7" fill="#C77465" opacity=".7">α</text>
+      <text x="2" y="33" font-family="Arial" font-size="7" fill="#A3A38B" opacity=".7">δ</text>
+      <text x="2" y="48" font-family="Arial" font-size="7" fill="#E8B59B" opacity=".7">γ</text>
+    </svg>
+  </div>
+
+  <!-- STORY -->
+  <section id="story">
+    <svg class="neuron-deco" style="bottom:30px;left:-20px;width:200px;height:160px;" viewBox="0 0 120 100"
+      xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path d="M0 80 Q30 60 50 50 Q70 40 90 30" stroke="#C77465" stroke-width="1.2" fill="none" opacity=".12" />
+      <path d="M50 50 Q40 30 35 10" stroke="#C77465" stroke-width=".9" fill="none" opacity=".1" />
+      <path d="M50 50 Q65 35 75 15" stroke="#A3A38B" stroke-width=".8" fill="none" opacity=".1" />
+      <circle cx="90" cy="30" r="4" fill="none" stroke="#C77465" stroke-width="1" opacity=".15" />
+      <circle cx="35" cy="10" r="2.5" fill="none" stroke="#C77465" stroke-width=".8" opacity=".12" />
+      <circle cx="75" cy="15" r="2" fill="none" stroke="#A3A38B" stroke-width=".7" opacity=".12" />
+    </svg>
+    <!-- Story top-right deco: astrocyte -->
+    <svg class="neuron-deco" style="top:20px;right:2vw;width:140px;height:140px;opacity:.22" viewBox="0 0 90 90"
+      xmlns="http://www.w3.org/2000/svg">
+      <circle cx="45" cy="45" r="8" fill="none" stroke="#A3A38B" stroke-width="1.5" />
+      <circle cx="45" cy="45" r="3" fill="#A3A38B" opacity=".5" />
+      <!-- astrocyte processes radiating out -->
+      <path d="M45,37 Q44,22 43,8" stroke="#A3A38B" stroke-width="1" fill="none" />
+      <path d="M45,37 Q52,24 58,10" stroke="#A3A38B" stroke-width="1" fill="none" />
+      <path d="M53,45 Q66,42 80,40" stroke="#A3A38B" stroke-width="1" fill="none" />
+      <path d="M53,53 Q64,60 76,68" stroke="#A3A38B" stroke-width="1" fill="none" />
+      <path d="M45,53 Q44,68 43,82" stroke="#A3A38B" stroke-width="1" fill="none" />
+      <path d="M37,53 Q26,60 14,68" stroke="#A3A38B" stroke-width="1" fill="none" />
+      <path d="M37,45 Q24,42 10,40" stroke="#A3A38B" stroke-width="1" fill="none" />
+      <path d="M37,37 Q28,24 18,10" stroke="#A3A38B" stroke-width="1" fill="none" />
+      <circle cx="43" cy="8" r="2.5" fill="#A3A38B" opacity=".5" />
+      <circle cx="58" cy="10" r="2.5" fill="#A3A38B" opacity=".5" />
+      <circle cx="80" cy="40" r="2.5" fill="#A3A38B" opacity=".5" />
+      <circle cx="76" cy="68" r="2.5" fill="#A3A38B" opacity=".5" />
+      <circle cx="43" cy="82" r="2.5" fill="#A3A38B" opacity=".5" />
+      <circle cx="14" cy="68" r="2.5" fill="#A3A38B" opacity=".5" />
+      <circle cx="10" cy="40" r="2.5" fill="#A3A38B" opacity=".5" />
+      <circle cx="18" cy="10" r="2.5" fill="#A3A38B" opacity=".5" />
+    </svg>
+    <div class="fade-in">
+      <div class="section-label">About</div>
+      <h2 class="section-title">A story of <em>curiosity</em><br>and computation.</h2>
+    </div>
+    <div class="story-grid fade-in">
+      <div class="story-text">
+        <p>I study how brain circuits produce behavior and how computational tools can help reveal the structure of
+          complex biological systems. I am currently an undergraduate at Northeastern University pursuing a combined
+          major in Data Science and Behavioral Neuroscience.</p>
+        <p>My interests lie at the intersection of neural circuit biology, data analysis, and translational
+          neuroscience. I am particularly interested in how large-scale biological datasets can be used to better
+          understand brain function and inform the development of new therapies.</p>
+        <p>Ultimately, I hope to work in pharmaceutical or biomedical research where computational and experimental
+          approaches are combined to translate discoveries in neuroscience into treatments for neurological and
+          psychiatric disease.</p>
+      </div>
+      <div>
+        <div class="hms-badge">
+          <div class="badge-title">🧠 Incoming · Harvard Medical School</div>
+          <div class="badge-sub">Andermann Lab · Computational Neuroscience Co-op<br>Mu-Opioid Receptors · Pain · LLMs
+            for Spatial Transcriptomics</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">3</div>
+          <div class="stat-label">Research Labs & Industry Roles</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">7+</div>
+          <div class="stat-label">Programming Languages & Tools</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SYNAPSE DIVIDER -->
+  <div class="synapse-divider">
+    <svg viewBox="0 0 1200 60" xmlns="http://www.w3.org/2000/svg">
+      <line x1="0" y1="0" x2="550" y2="0" stroke="#E8B59B" stroke-width="1.5" opacity=".5" />
+      <circle cx="510" cy="16" r="5" fill="none" stroke="#C77465" stroke-width="1.2" opacity=".7" />
+      <circle cx="526" cy="20" r="5" fill="none" stroke="#C77465" stroke-width="1.2" opacity=".7" />
+      <circle cx="518" cy="8" r="4" fill="none" stroke="#C77465" stroke-width="1.2" opacity=".5" />
+      <circle cx="534" cy="12" r="4" fill="none" stroke="#C77465" stroke-width="1.2" opacity=".5" />
+      <circle cx="542" cy="20" r="5" fill="none" stroke="#C77465" stroke-width="1.2" opacity=".7" />
+      <circle cx="508" cy="32" r="2" fill="#C77465" opacity=".5" />
+      <circle cx="520" cy="35" r="2" fill="#C77465" opacity=".5" />
+      <circle cx="532" cy="31" r="2" fill="#C77465" opacity=".5" />
+      <circle cx="544" cy="34" r="2" fill="#C77465" opacity=".5" />
+      <line x1="500" y1="50" x2="1200" y2="50" stroke="#A3A38B" stroke-width="1.5" opacity=".5" />
+      <rect x="505" y="38" width="6" height="6" rx="1" fill="#A3A38B" opacity=".6" />
+      <rect x="518" y="38" width="6" height="6" rx="1" fill="#A3A38B" opacity=".6" />
+      <rect x="531" y="38" width="6" height="6" rx="1" fill="#A3A38B" opacity=".6" />
+      <rect x="544" y="38" width="6" height="6" rx="1" fill="#A3A38B" opacity=".6" />
+      <text x="556" y="44" font-family="Arial" font-size="8" fill="#A3A38B" opacity=".6">μ-opioid receptors</text>
+    </svg>
+  </div>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <svg class="neuron-deco" style="right:4vw;top:60px;width:180px;height:280px;" viewBox="0 0 100 160"
+      xmlns="http://www.w3.org/2000/svg">
+      <path d="M50,0 Q50,40 50,60" stroke="#C77465" stroke-width="2" fill="none" />
+      <path d="M50,60 Q35,90 20,110" stroke="#C77465" stroke-width="1.5" fill="none" />
+      <path d="M50,60 Q65,90 80,110" stroke="#C77465" stroke-width="1.5" fill="none" />
+      <path d="M50,60 Q50,90 50,115" stroke="#C77465" stroke-width="1.5" fill="none" />
+      <circle cx="20" cy="112" r="5" fill="#C77465" opacity=".5" />
+      <circle cx="80" cy="112" r="5" fill="#C77465" opacity=".5" />
+      <circle cx="50" cy="117" r="5" fill="#C77465" opacity=".5" />
+      <path d="M50,60 Q28,80 12,95" stroke="#C77465" stroke-width="1.2" fill="none" />
+      <path d="M50,60 Q72,80 88,95" stroke="#C77465" stroke-width="1.2" fill="none" />
+      <circle cx="12" cy="97" r="4" fill="#C77465" opacity=".4" />
+      <circle cx="88" cy="97" r="4" fill="#C77465" opacity=".4" />
+    </svg>
+    <!-- Experience left deco: pyramidal cell -->
+    <svg class="neuron-deco" style="left:1vw;bottom:60px;width:110px;height:220px;opacity:.28" viewBox="0 0 70 140"
+      xmlns="http://www.w3.org/2000/svg">
+      <circle cx="35" cy="80" r="10" fill="none" stroke="#C77465" stroke-width="1.5" />
+      <circle cx="35" cy="80" r="4" fill="#C77465" opacity=".5" />
+      <!-- apical dendrite -->
+      <path d="M35,70 Q35,50 35,30 Q35,15 35,5" stroke="#C77465" stroke-width="1.5" fill="none" />
+      <path d="M35,30 Q28,20 22,10" stroke="#C77465" stroke-width="1" fill="none" />
+      <path d="M35,30 Q42,20 48,10" stroke="#C77465" stroke-width="1" fill="none" />
+      <path d="M35,15 Q30,8 25,2" stroke="#C77465" stroke-width=".8" fill="none" />
+      <path d="M35,15 Q40,8 45,2" stroke="#C77465" stroke-width=".8" fill="none" />
+      <!-- basal dendrites -->
+      <path d="M35,90 Q22,100 12,112" stroke="#A3A38B" stroke-width="1.2" fill="none" />
+      <path d="M35,90 Q48,100 58,112" stroke="#A3A38B" stroke-width="1.2" fill="none" />
+      <path d="M35,90 Q35,105 35,120" stroke="#A3A38B" stroke-width="1.2" fill="none" />
+      <path d="M35,90 Q18,95 5,98" stroke="#A3A38B" stroke-width="1" fill="none" />
+      <path d="M35,90 Q52,95 65,98" stroke="#A3A38B" stroke-width="1" fill="none" />
+      <circle cx="22" cy="10" r="2" fill="#C77465" opacity=".6" />
+      <circle cx="48" cy="10" r="2" fill="#C77465" opacity=".6" />
+      <circle cx="25" cy="2" r="2" fill="#C77465" opacity=".5" />
+      <circle cx="45" cy="2" r="2" fill="#C77465" opacity=".5" />
+      <circle cx="12" cy="112" r="2.5" fill="#A3A38B" opacity=".6" />
+      <circle cx="58" cy="112" r="2.5" fill="#A3A38B" opacity=".6" />
+      <circle cx="35" cy="120" r="2.5" fill="#A3A38B" opacity=".6" />
+      <circle cx="5" cy="98" r="2" fill="#A3A38B" opacity=".5" />
+      <circle cx="65" cy="98" r="2" fill="#A3A38B" opacity=".5" />
+    </svg>
+    <div class="fade-in">
+      <div class="section-label">Experience</div>
+      <h2 class="section-title">The research <em>journey.</em></h2>
+    </div>
+    <div class="timeline fade-in">
+      <div class="tl-item">
+        <div class="tl-dot incoming"></div>
+        <div class="incoming-tag">⚡ Incoming</div>
+        <div class="tl-date">Summer 2026</div>
+        <div class="tl-role">Computational Neuroscience Co-op</div>
+        <div class="tl-org">Andermann Lab · Harvard Medical School, Boston, MA</div>
+        <ul class="tl-bullets">
+          <li>Studying mu-opioid receptor circuits and pain processing using computational methods</li>
+          <li>Leveraging large language models to predict spatial gene expression patterns from tissue data</li>
+          <li>Working at the frontier of AI-assisted neuroscience and spatial transcriptomics</li>
+        </ul>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-date">May 2025 – Present</div>
+        <div class="tl-role">Research Assistant</div>
+        <div class="tl-org">Shansky Neuroanatomy Lab · Northeastern University, Boston, MA</div>
+        <ul class="tl-bullets">
+          <li>Built Python pipelines to clean, synchronize, and structure multi-channel fiber photometry datasets</li>
+          <li>Implemented TTL-based event detection and alignment, reducing manual segmentation time and improving
+            reproducibility</li>
+          <li>Reconstructed missing signal segments via linear interpolation, preserving data continuity</li>
+          <li>Trained deep learning pose estimation models (SLEAP) for automated animal tracking, eliminating manual
+            behavioral scoring</li>
+        </ul>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot sage"></div>
+        <div class="tl-date">June – July 2025</div>
+        <div class="tl-role">Summer Intern</div>
+        <div class="tl-org">Cambridge Mobile Telematics, Boston, MA</div>
+        <ul class="tl-bullets">
+          <li>Built automated spreadsheet pipelines and dashboards to track employment trends and improve stakeholder
+            visibility</li>
+          <li>Partnered with external clients to translate real-world business questions into actionable data analyses
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- SPIKE RASTER -->
+  <div class="spike-band" style="background:rgba(199,116,101,.05);padding:8px 8vw;">
+    <svg width="100%" height="36" viewBox="0 0 1000 36" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <g opacity=".55" stroke="#C77465" stroke-width="1.5">
+        <line x1="20" y1="2" x2="20" y2="10" />
+        <line x1="55" y1="2" x2="55" y2="10" />
+        <line x1="80" y1="2" x2="80" y2="10" />
+        <line x1="120" y1="2" x2="120" y2="10" />
+        <line x1="145" y1="2" x2="145" y2="10" />
+        <line x1="190" y1="2" x2="190" y2="10" />
+        <line x1="220" y1="2" x2="220" y2="10" />
+        <line x1="260" y1="2" x2="260" y2="10" />
+        <line x1="285" y1="2" x2="285" y2="10" />
+        <line x1="330" y1="2" x2="330" y2="10" />
+        <line x1="370" y1="2" x2="370" y2="10" />
+        <line x1="410" y1="2" x2="410" y2="10" />
+        <line x1="455" y1="2" x2="455" y2="10" />
+        <line x1="490" y1="2" x2="490" y2="10" />
+        <line x1="530" y1="2" x2="530" y2="10" />
+        <line x1="570" y1="2" x2="570" y2="10" />
+        <line x1="615" y1="2" x2="615" y2="10" />
+        <line x1="650" y1="2" x2="650" y2="10" />
+        <line x1="690" y1="2" x2="690" y2="10" />
+        <line x1="730" y1="2" x2="730" y2="10" />
+        <line x1="775" y1="2" x2="775" y2="10" />
+        <line x1="810" y1="2" x2="810" y2="10" />
+        <line x1="850" y1="2" x2="850" y2="10" />
+        <line x1="900" y1="2" x2="900" y2="10" />
+        <line x1="940" y1="2" x2="940" y2="10" />
+        <line x1="975" y1="2" x2="975" y2="10" />
+      </g>
+      <g opacity=".4" stroke="#A3A38B" stroke-width="1.5">
+        <line x1="10" y1="14" x2="10" y2="22" />
+        <line x1="40" y1="14" x2="40" y2="22" />
+        <line x1="95" y1="14" x2="95" y2="22" />
+        <line x1="130" y1="14" x2="130" y2="22" />
+        <line x1="175" y1="14" x2="175" y2="22" />
+        <line x1="205" y1="14" x2="205" y2="22" />
+        <line x1="245" y1="14" x2="245" y2="22" />
+        <line x1="300" y1="14" x2="300" y2="22" />
+        <line x1="340" y1="14" x2="340" y2="22" />
+        <line x1="385" y1="14" x2="385" y2="22" />
+        <line x1="425" y1="14" x2="425" y2="22" />
+        <line x1="470" y1="14" x2="470" y2="22" />
+        <line x1="510" y1="14" x2="510" y2="22" />
+        <line x1="550" y1="14" x2="550" y2="22" />
+        <line x1="595" y1="14" x2="595" y2="22" />
+        <line x1="635" y1="14" x2="635" y2="22" />
+        <line x1="670" y1="14" x2="670" y2="22" />
+        <line x1="710" y1="14" x2="710" y2="22" />
+        <line x1="755" y1="14" x2="755" y2="22" />
+        <line x1="795" y1="14" x2="795" y2="22" />
+        <line x1="835" y1="14" x2="835" y2="22" />
+        <line x1="880" y1="14" x2="880" y2="22" />
+        <line x1="920" y1="14" x2="920" y2="22" />
+        <line x1="960" y1="14" x2="960" y2="22" />
+      </g>
+      <g opacity=".35" stroke="#E8B59B" stroke-width="1.5">
+        <line x1="30" y1="26" x2="30" y2="34" />
+        <line x1="70" y1="26" x2="70" y2="34" />
+        <line x1="110" y1="26" x2="110" y2="34" />
+        <line x1="160" y1="26" x2="160" y2="34" />
+        <line x1="200" y1="26" x2="200" y2="34" />
+        <line x1="240" y1="26" x2="240" y2="34" />
+        <line x1="275" y1="26" x2="275" y2="34" />
+        <line x1="315" y1="26" x2="315" y2="34" />
+        <line x1="355" y1="26" x2="355" y2="34" />
+        <line x1="400" y1="26" x2="400" y2="34" />
+        <line x1="440" y1="26" x2="440" y2="34" />
+        <line x1="480" y1="26" x2="480" y2="34" />
+        <line x1="520" y1="26" x2="520" y2="34" />
+        <line x1="560" y1="26" x2="560" y2="34" />
+        <line x1="605" y1="26" x2="605" y2="34" />
+        <line x1="645" y1="26" x2="645" y2="34" />
+        <line x1="685" y1="26" x2="685" y2="34" />
+        <line x1="725" y1="26" x2="725" y2="34" />
+        <line x1="765" y1="26" x2="765" y2="34" />
+        <line x1="805" y1="26" x2="805" y2="34" />
+        <line x1="845" y1="26" x2="845" y2="34" />
+        <line x1="890" y1="26" x2="890" y2="34" />
+        <line x1="930" y1="26" x2="930" y2="34" />
+      </g>
+      <text x="4" y="9" font-family="Arial" font-size="6" fill="#C77465" opacity=".6">N1</text>
+      <text x="4" y="21" font-family="Arial" font-size="6" fill="#A3A38B" opacity=".6">N2</text>
+      <text x="4" y="33" font-family="Arial" font-size="6" fill="#E8B59B" opacity=".6">N3</text>
+    </svg>
+  </div>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <!-- Projects right deco: interneuron -->
+    <svg class="neuron-deco" style="right:1vw;bottom:80px;width:120px;height:200px;opacity:.25" viewBox="0 0 75 125"
+      xmlns="http://www.w3.org/2000/svg">
+      <circle cx="38" cy="62" r="9" fill="none" stroke="#E8B59B" stroke-width="1.5" />
+      <circle cx="38" cy="62" r="4" fill="#E8B59B" opacity=".5" />
+      <path d="M38,53 Q38,38 38,20" stroke="#E8B59B" stroke-width="1.3" fill="none" />
+      <path d="M38,20 Q30,12 22,4" stroke="#E8B59B" stroke-width="1" fill="none" />
+      <path d="M38,20 Q46,12 54,4" stroke="#E8B59B" stroke-width="1" fill="none" />
+      <path d="M47,62 Q60,58 72,55" stroke="#C77465" stroke-width="1" fill="none" />
+      <path d="M29,62 Q16,58 3,55" stroke="#C77465" stroke-width="1" fill="none" />
+      <path d="M38,71 Q38,86 38,105" stroke="#E8B59B" stroke-width="1.3" fill="none" />
+      <path d="M38,105 Q30,114 22,122" stroke="#E8B59B" stroke-width="1" fill="none" />
+      <path d="M38,105 Q46,114 54,122" stroke="#E8B59B" stroke-width="1" fill="none" />
+      <circle cx="22" cy="4" r="2.5" fill="#E8B59B" opacity=".6" />
+      <circle cx="54" cy="4" r="2.5" fill="#E8B59B" opacity=".6" />
+      <circle cx="72" cy="55" r="2.5" fill="#C77465" opacity=".6" />
+      <circle cx="3" cy="55" r="2.5" fill="#C77465" opacity=".6" />
+      <circle cx="22" cy="122" r="2.5" fill="#E8B59B" opacity=".6" />
+      <circle cx="54" cy="122" r="2.5" fill="#E8B59B" opacity=".6" />
+    </svg>
+    <div class="fade-in">
+      <div class="section-label">Projects</div>
+      <h2 class="section-title">Building things that <em>matter.</em></h2>
+    </div>
+    <div class="projects-grid fade-in">
+      <div class="proj-card active-project">
+        <div class="active-badge"><span class="active-dot"></span>In Progress</div>
+        <div class="proj-tag">Behavioral Neuroscience · Computer Vision</div>
+        <div class="proj-title">Automated Rat Behavior Classification via Pose Estimation & Velocity Analysis</div>
+        <div class="proj-tech">
+          <span class="tech-chip">Python</span><span class="tech-chip">SLEAP</span><span class="tech-chip">Pose
+            Estimation</span><span class="tech-chip">Kinematics</span>
+        </div>
+        <ul class="proj-bullets">
+          <li>Training SLEAP deep learning models to track rat body keypoints across behavioral video recordings</li>
+          <li>Computing frame-by-frame velocity and movement trajectories from pose coordinate time series</li>
+          <li>Classifying scanning and darting behaviors using kinematic signatures to replace manual hand-scoring</li>
+          <li>Building an automated, reproducible pipeline to enable scalable batch processing of behavioral experiments
+          </li>
+        </ul>
+        <div class="proj-date">2026 · Ongoing</div>
+      </div>
+      <div class="proj-card">
+        <div class="proj-tag">Computational Neuroscience · Signal Processing</div>
+        <div class="proj-title">Fiber Photometry Signal Processing & Artifact Correction Pipeline</div>
+        <div class="proj-tech">
+          <span class="tech-chip">Python</span><span class="tech-chip">NumPy</span><span class="tech-chip">Signal
+            Processing</span>
+        </div>
+        <ul class="proj-bullets">
+          <li>End-to-end pipeline integrating artifact correction and experiment-aligned segmentation</li>
+          <li>TTL-based event detection to align neural signals with behavioral stimuli</li>
+          <li>Derivative-based artifact detection for fluorescence time series</li>
+          <li>Linear interpolation reconstruction with synchronized multi-channel processing</li>
+        </ul>
+        <div class="proj-date">December 2025</div>
+      </div>
+      <div class="proj-card">
+        <div class="proj-tag">Clinical ML · Healthcare</div>
+        <div class="proj-title">Heart Failure Mortality Prediction</div>
+        <div class="proj-tech">
+          <span class="tech-chip">Python</span><span class="tech-chip">scikit-learn</span><span
+            class="tech-chip">Logistic Regression</span><span class="tech-chip">KNN</span>
+        </div>
+        <ul class="proj-bullets">
+          <li>Logistic Regression and K-Nearest Neighbors classifiers — 82% accuracy</li>
+          <li>Chi-square tests and t-tests for statistically significant correlations</li>
+          <li>Key risk factors: serum creatinine, age, and ejection fraction</li>
+          <li>Interpreted model coefficients to assess clinical relevance of predictors</li>
+        </ul>
+        <div class="proj-date">November 2025</div>
+      </div>
+      <div class="proj-card">
+        <div class="proj-tag">Medical AI · Deep Learning</div>
+        <div class="proj-title">Alzheimer's MRI Classification Model</div>
+        <div class="proj-tech">
+          <span class="tech-chip">Python</span><span class="tech-chip">TensorFlow</span><span
+            class="tech-chip">Keras</span><span class="tech-chip">Transfer Learning</span>
+        </div>
+        <ul class="proj-bullets">
+          <li>Deep learning model to classify Alzheimer's disease stages from MRI images</li>
+          <li>TensorFlow and Keras architectures for image classification</li>
+          <li>Transfer learning via pre-trained model to enhance accuracy</li>
+        </ul>
+        <div class="proj-date">October 2024</div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:38px;" class="fade-in">
+      <a href="https://github.com/EllenaLink" target="_blank" class="btn btn-outline">View All on GitHub →</a>
+    </div>
+  </section>
+
+  <!-- FIBER PHOTOMETRY TRACE -->
+  <div style="padding:0 8vw 0;background:rgba(163,163,139,.08);overflow:hidden;">
+    <svg width="100%" height="64" viewBox="0 0 1200 64" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <polyline
+        points="0,38 30,36 60,37 90,35 120,36 150,34 180,36 210,35 240,36 270,34 300,35 330,34 360,35 390,34 420,35 450,34 480,36 510,35 540,34 570,35 600,34 630,36 660,35 690,34 720,36 750,35 780,34 810,35 840,34 870,36 900,35 930,34 960,36 990,35 1020,34 1050,35 1080,36 1110,35 1140,34 1170,35 1200,34"
+        stroke="#A3A38B" stroke-width="1" fill="none" opacity=".5" />
+      <path
+        d="M0,38 Q60,37 120,36 Q160,35 190,30 Q210,18 220,10 Q230,20 240,30 Q260,36 300,36 Q360,35 400,34 Q440,34 470,28 Q490,16 500,8 Q510,18 520,28 Q540,34 580,34 Q640,33 680,32 Q720,30 750,22 Q770,10 780,4 Q790,14 800,24 Q820,32 860,33 Q920,33 960,32 Q1000,31 1030,24 Q1050,12 1060,5 Q1070,15 1080,25 Q1100,32 1140,33 Q1170,33 1200,33"
+        stroke="#C77465" stroke-width="1.8" fill="none" opacity=".7" />
+      <line x1="190" y1="52" x2="190" y2="58" stroke="#E8B59B" stroke-width="1.5" opacity=".7" />
+      <line x1="470" y1="52" x2="470" y2="58" stroke="#E8B59B" stroke-width="1.5" opacity=".7" />
+      <line x1="750" y1="52" x2="750" y2="58" stroke="#E8B59B" stroke-width="1.5" opacity=".7" />
+      <line x1="1030" y1="52" x2="1030" y2="58" stroke="#E8B59B" stroke-width="1.5" opacity=".7" />
+      <line x1="0" y1="55" x2="1200" y2="55" stroke="#E8B59B" stroke-width=".8" opacity=".3" />
+      <text x="4" y="30" font-family="Arial" font-size="7" fill="#C77465" opacity=".7">GCaMP 470nm</text>
+      <text x="4" y="42" font-family="Arial" font-size="7" fill="#A3A38B" opacity=".7">405nm ctrl</text>
+      <text x="4" y="62" font-family="Arial" font-size="7" fill="#E8B59B" opacity=".7">TTL</text>
+    </svg>
+  </div>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <!-- Skills top-right: Purkinje cell -->
+    <svg class="neuron-deco" style="top:20px;right:2vw;width:130px;height:180px;opacity:.28" viewBox="0 0 80 115"
+      xmlns="http://www.w3.org/2000/svg">
+      <circle cx="40" cy="75" r="9" fill="none" stroke="#C77465" stroke-width="1.5" />
+      <circle cx="40" cy="75" r="4" fill="#C77465" opacity=".5" />
+      <!-- massive dendritic tree -->
+      <path d="M40,66 Q40,52 40,40" stroke="#C77465" stroke-width="1.4" fill="none" />
+      <path d="M40,40 Q30,28 22,18" stroke="#C77465" stroke-width="1.2" fill="none" />
+      <path d="M40,40 Q50,28 58,18" stroke="#C77465" stroke-width="1.2" fill="none" />
+      <path d="M22,18 Q16,10 10,4" stroke="#C77465" stroke-width="1" fill="none" />
+      <path d="M22,18 Q26,10 28,2" stroke="#C77465" stroke-width="1" fill="none" />
+      <path d="M58,18 Q62,10 66,3" stroke="#C77465" stroke-width="1" fill="none" />
+      <path d="M58,18 Q54,10 52,2" stroke="#C77465" stroke-width="1" fill="none" />
+      <path d="M40,52 Q28,46 16,42" stroke="#C77465" stroke-width="1" fill="none" />
+      <path d="M40,52 Q52,46 64,42" stroke="#C77465" stroke-width="1" fill="none" />
+      <!-- axon down -->
+      <path d="M40,84 Q40,98 40,112" stroke="#A3A38B" stroke-width="1.5" fill="none" />
+      <circle cx="10" cy="4" r="2" fill="#C77465" opacity=".5" />
+      <circle cx="28" cy="2" r="2" fill="#C77465" opacity=".5" />
+      <circle cx="52" cy="2" r="2" fill="#C77465" opacity=".5" />
+      <circle cx="66" cy="3" r="2" fill="#C77465" opacity=".5" />
+      <circle cx="16" cy="42" r="2" fill="#C77465" opacity=".5" />
+      <circle cx="64" cy="42" r="2" fill="#C77465" opacity=".5" />
+    </svg>
+    <div class="fade-in">
+      <div class="section-label">Skills</div>
+      <h2 class="section-title">The <em>toolkit.</em></h2>
+    </div>
+    <div class="skills-grid fade-in">
+      <div class="skill-group">
+        <div class="skill-group-title">Languages & Software</div>
+        <div class="skill-chips">
+          <span class="skill-chip">Python</span><span class="skill-chip">R</span><span
+            class="skill-chip">SQL</span><span class="skill-chip">JavaScript</span><span
+            class="skill-chip">HTML</span><span class="skill-chip">Racket</span><span
+            class="skill-chip">SPSS</span><span class="skill-chip">SLEAP</span><span
+            class="skill-chip">LaTeX</span><span class="skill-chip">Excel</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title">Machine Learning</div>
+        <div class="skill-chips">
+          <span class="skill-chip">K-Nearest Neighbors</span><span class="skill-chip">Logistic Regression</span><span
+            class="skill-chip">SVD</span><span class="skill-chip">scikit-learn</span><span
+            class="skill-chip">TensorFlow</span><span class="skill-chip">Keras</span><span
+            class="skill-chip">Matplotlib</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title">Data Engineering</div>
+        <div class="skill-chips">
+          <span class="skill-chip">Data Pipelines</span><span class="skill-chip">Database Design</span><span
+            class="skill-chip">Data Cleaning</span><span class="skill-chip">Artifact Correction</span><span
+            class="skill-chip">Signal Processing</span><span class="skill-chip">Data Visualization</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title">Neuroscience Methods</div>
+        <div class="skill-chips">
+          <span class="skill-chip">Fiber Photometry</span><span class="skill-chip">Pose Estimation</span><span
+            class="skill-chip">TTL Event Detection</span><span class="skill-chip">Behavioral Scoring</span><span
+            class="skill-chip">Spatial Transcriptomics</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section id="education">
+    <svg class="neuron-deco" style="left:2vw;bottom:60px;width:60px;height:300px;" viewBox="0 0 40 200"
+      xmlns="http://www.w3.org/2000/svg">
+      <path d="M10,0 Q30,25 10,50 Q-10,75 10,100 Q30,125 10,150 Q-10,175 10,200" stroke="#C77465" stroke-width="2"
+        fill="none" />
+      <path d="M30,0 Q10,25 30,50 Q50,75 30,100 Q10,125 30,150 Q50,175 30,200" stroke="#A3A38B" stroke-width="2"
+        fill="none" />
+      <line x1="10" y1="12" x2="30" y2="12" stroke="#E8B59B" stroke-width="1.2" opacity="1000.5" />
+      <line x1="10" y1="25" x2="30" y2="25" stroke="#E8B59B" stroke-width="1.2" opacity="1000.5" />
+      <line x1="10" y1="50" x2="30" y2="50" stroke="#E8B59B" stroke-width="1.2" opacity="1000.5" />
+      <line x1="10" y1="75" x2="30" y2="75" stroke="#E8B59B" stroke-width="1.2" opacity="1000.5" />
+      <line x1="10" y1="100" x2="30" y2="100" stroke="#E8B59B" stroke-width="1.2" opacity="1000.5" />
+      <line x1="10" y1="125" x2="30" y2="125" stroke="#E8B59B" stroke-width="1.2" opacity="1000.5" />
+      <line x1="10" y1="150" x2="30" y2="150" stroke="#E8B59B" stroke-width="1.2" opacity="1000.5" />
+      <line x1="10" y1="175" x2="30" y2="175" stroke="#E8B59B" stroke-width="1.2" opacity="1000.5" />
+    </svg>
+    <!-- Education top-right: oligodendrocyte — opacity raised from .25 to .52 -->
+    <svg class="neuron-deco" style="top:20px;right:3vw;width:150px;height:130px;opacity:.52" viewBox="0 0 95 80"
+      xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,40 Q95,40 95,40" stroke="#C77465" stroke-width="2" fill="none" />
+      <ellipse cx="20" cy="40" rx="7" ry="12" fill="none" stroke="#E8B59B" stroke-width="1.2" opacity="1000.5" />
+      <ellipse cx="40" cy="40" rx="7" ry="12" fill="none" stroke="#E8B59B" stroke-width="1.2" opacity="1000.5" />
+      <ellipse cx="60" cy="40" rx="7" ry="12" fill="none" stroke="#E8B59B" stroke-width="1.2" opacity="1000.5" />
+      <ellipse cx="80" cy="40" rx="7" ry="12" fill="none" stroke="#E8B59B" stroke-width="1.2" opacity="1000.5" />
+      <!-- oligodendrocyte cell body -->
+      <circle cx="10" cy="15" r="7" fill="none" stroke="#A3A38B" stroke-width="1.2" />
+      <circle cx="10" cy="15" r="3" fill="#A3A38B" opacity=".14" />
+      <path d="M10,22 Q12,30 16,36" stroke="#A3A38B" stroke-width="1" fill="none" />
+      <path d="M10,22 Q6,30 5,38" stroke="#A3A38B" stroke-width="1" fill="none" />
+      <path d="M10,8 Q10,4 10,0" stroke="#A3A38B" stroke-width="1" fill="none" />
+      <!-- nodes of ranvier labels -->
+      <text x="28" y="36" font-family="Arial" font-size="5" fill="#C77465" opacity="1000.5">N</text>
+      <text x="48" y="36" font-family="Arial" font-size="5" fill="#C77465" opacity="1000.5">N</text>
+      <text x="68" y="36" font-family="Arial" font-size="5" fill="#C77465" opacity="1000.5">N</text>
+    </svg>
+    <div class="fade-in">
+      <div class="section-label">Education & Recognition</div>
+      <h2 class="section-title">Grounded in <em>science</em>,<br>driven by community.</h2>
+    </div>
+    <div class="edu-grid fade-in">
+      <div>
+        <h3 style="font-size:1.05rem;color:var(--dark);margin-bottom:4px;">Northeastern University</h3>
+        <p style="color:var(--sage);font-style:italic;font-size:.88rem;margin-bottom:18px;">B.S. Data Science &
+          Behavioral Neuroscience</p>
+        <div class="section-label" style="margin-bottom:10px;">Honors & Certifications</div>
+        <div class="honor-list">
+          <div class="honor-item"><span class="honor-icon">🏅</span>
+            <div class="honor-text"><strong>NU Accelerate Scholarship</strong>Northeastern University merit award</div>
+          </div>
+          <div class="honor-item"><span class="honor-icon">📊</span>
+            <div class="honor-text"><strong>NUView Data Visualization Certification</strong>Northeastern University
+            </div>
+          </div>
+          <div class="honor-item"><span class="honor-icon">🔬</span>
+            <div class="honor-text"><strong>ROP Biotechnology Canvas Certification</strong></div>
+          </div>
+          <div class="honor-item"><span class="honor-icon">💻</span>
+            <div class="honor-text"><strong>Data Science Certification</strong>Girls Who Code</div>
+          </div>
+        </div>
+        <div class="section-label" style="margin-top:22px;margin-bottom:10px;">Activities & Involvement</div>
+        <div class="activities-list">
+          <div class="activity-item">
+            <div class="activity-dot"></div>WREN Scholar — Women's Research Engagement Network
+          </div>
+          <div class="activity-item">
+            <div class="activity-dot"></div>Member, ViTAL — Northeastern Healthcare Innovation Club
+          </div>
+          <div class="activity-item">
+            <div class="activity-dot"></div>Evolve Partnership Associate
+          </div>
+          <div class="activity-item">
+            <div class="activity-dot"></div>HHIC — Husky Health Innovation Challenge
+          </div>
+          <div class="activity-item">
+            <div class="activity-dot"></div>Nu.in Madrid — Global Study Program
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="section-label" style="margin-bottom:10px;">Relevant Coursework</div>
+        <div class="course-tags">
+          <span class="course-tag">Foundations of Data Science</span><span class="course-tag">Intermediate Programming
+            with Data</span><span class="course-tag">Intro to Databases</span><span class="course-tag">Statistics in
+            Psychological Research</span><span class="course-tag">Neurobiology</span><span
+            class="course-tag">Psychopharmacology</span><span class="course-tag">Developmental Psychology</span><span
+            class="course-tag">Genetics & Molecular Biology</span><span class="course-tag">Organic Chemistry</span><span
+            class="course-tag">Immunopathology</span>
+        </div>
+        <div class="research-box">
+          <div class="section-label" style="margin-bottom:6px;">Research Interests</div>
+          <p>Computational approaches to pain & opioid circuits · Spatial transcriptomics & LLM applications · Clinical
+            ML for disease prediction · Neural signal processing & behavior quantification · Pharma + AI drug discovery
+            pipelines</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div>
+      <div class="footer-name">Ellena Link</div>
+      <div class="footer-sub">Data Science & Behavioral Neuroscience · Northeastern University<br>Incoming Co-op ·
+        Andermann Lab, Harvard Medical School</div>
+    </div>
+    <div class="footer-links">
+      <a href="https://github.com/EllenaLink" target="_blank">GitHub</a>
+      <a href="https://linkedin.com/in/ellena-link-79b8a5282" target="_blank">LinkedIn</a>
+      <a href="#hero">↑ Top</a>
+    </div>
+  </footer>
+
+  <script>
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: .1 });
+    document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+  </script>
+</body>
+
+</html>
