@@ -13,16 +13,16 @@
   <style>
     :root {
       /* mauve accent palette on dark — background unchanged */
-      --background: #1c1917;       /* page bg — used everywhere */
+      --background: #1c1917;       
       --foreground: #e0e7ff;
-      --card: #4A3D4D;             /* dark mauve card — same family as 'Ellena Link' */
+      --card: #4A3D4D;            
       --card-foreground: #e0e7ff;
-      --primary: #A990AC;          /* light mauve — primary accent / button bg */
-      --primary-deep: #846B85;     /* mid mauve — hover / deeper accent */
+      --primary: #A990AC;         
+      --primary-deep: #846B85;    
       --primary-foreground: #1c1917;
       --secondary: #624F60;
       --secondary-foreground: #d1d5db;
-      --muted: #5C4D60;            /* one shade lighter than card — chip elevation inside cards */
+      --muted: #5C4D60;           
       --muted-foreground: #9ca3af;
       --accent: #846B85;
       --accent-foreground: #d1d5db;
@@ -30,14 +30,14 @@
       --ring: #A990AC;
       --radius: 1.5rem;
 
-      /* legacy aliases mapped to mauve roles */
-      --terracotta: #A990AC;            /* primary accent */
-      --peach: #846B85;                 /* secondary accent / borders */
-      --cream: #4A3D4D;                 /* card surface (legacy alias) */
-      --sage: #9ca3af;                  /* muted text */
-      --dark: #e0e7ff;                  /* primary text */
-      --mid: #d1d5db;                   /* body text */
-      --light-sage: #624F60;            /* light borders */
+      /* legacy aliases */
+      --terracotta: #A990AC;         
+      --peach: #846B85;             
+      --cream: #4A3D4D;                
+      --sage: #9ca3af;               
+      --dark: #e0e7ff;                 
+      --mid: #d1d5db;                   
+      --light-sage: #624F60;           
       --white: #ffffff;
     }
 
@@ -142,11 +142,11 @@
       height: 100%;
       z-index: 0;
       display: block;
-      /* very subtle saturation lift; scene is already dark by design */
+    
       filter: saturate(1.15);
     }
 
-    /* dark vignette so hero copy stays legible over the 3D scene */
+ 
     #hero::before {
       content: '';
       position: absolute;
@@ -242,7 +242,7 @@
       transform: translateY(-2px);
     }
 
-    /* hero buttons — subtle frosted lift over the 3D scene */
+    /* hero buttons */
     #hero .btn-primary {
       background: var(--primary);
       color: var(--primary-foreground);
@@ -324,7 +324,7 @@
       z-index: 1;
     }
 
-    /* ── SPACING: tighter gap between label → title → content ── */
+    /* SPACING*/
     .section-label {
       font-family: 'Open Sans', sans-serif;
       font-size: .68rem;
@@ -332,7 +332,7 @@
       text-transform: uppercase;
       color: var(--terracotta);
       margin-bottom: 6px;
-      /* was 10px */
+     
     }
 
     .section-title {
@@ -417,7 +417,7 @@
       z-index: 1;
     }
 
-    /* ── FONT SIZE: increased body/content text ── */
+    /* FONT SIZE*/
     .story-text p {
       font-size: 1.05rem;
       /* was 1rem */
