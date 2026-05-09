@@ -663,6 +663,35 @@
       background: linear-gradient(160deg, var(--muted), var(--card));
     }
 
+    /* featured project card spans the full grid row with a video on the left */
+    .proj-card.featured {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) 1fr;
+      gap: 32px;
+      align-items: start;
+    }
+    .proj-video {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 14px;
+      background: var(--background);
+      aspect-ratio: 880 / 694;
+      object-fit: cover;
+    }
+    .proj-video-caption {
+      font-family: 'Open Sans', sans-serif;
+      font-size: .68rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--sage);
+      margin-top: 8px;
+    }
+    @media (max-width: 900px) {
+      .proj-card.featured { grid-template-columns: 1fr; }
+    }
+
     .active-badge {
       display: inline-flex;
       align-items: center;
@@ -1552,21 +1581,30 @@
       <h2 class="section-title">Building things that <em>matter.</em></h2>
     </div>
     <div class="projects-grid fade-in">
-      <div class="proj-card">
-        <div class="proj-tag">Behavioral Neuroscience · Computer Vision</div>
-        <div class="proj-title">Automated Rat Behavior Classification via Pose Estimation & Velocity Analysis</div>
-        <div class="proj-tech">
-          <span class="tech-chip">Python</span><span class="tech-chip">SLEAP</span><span class="tech-chip">Pose
-            Estimation</span><span class="tech-chip">Kinematics</span>
+      <div class="proj-card featured">
+        <div>
+          <video class="proj-video" autoplay muted loop playsinline preload="metadata"
+                 aria-label="SLEAP pose-estimation tracking of a rat's body keypoints across a behavioral session">
+            <source src="sleap-tracking.mp4" type="video/mp4">
+          </video>
+          <div class="proj-video-caption">SLEAP pose tracking · live demo</div>
         </div>
-        <ul class="proj-bullets">
-          <li>Trained SLEAP deep learning models to track rat body keypoints across behavioral video recordings</li>
-          <li>Computed frame-by-frame velocity and movement trajectories from pose coordinate time series</li>
-          <li>Classified scanning and darting behaviors using kinematic signatures to replace manual hand-scoring</li>
-          <li>Built an automated, reproducible pipeline to enable scalable batch processing of behavioral experiments
-          </li>
-        </ul>
-        <div class="proj-date">2025 – 2026</div>
+        <div>
+          <div class="proj-tag">Behavioral Neuroscience · Computer Vision</div>
+          <div class="proj-title">Automated Rat Behavior Classification via Pose Estimation & Velocity Analysis</div>
+          <div class="proj-tech">
+            <span class="tech-chip">Python</span><span class="tech-chip">SLEAP</span><span class="tech-chip">Pose
+              Estimation</span><span class="tech-chip">Kinematics</span>
+          </div>
+          <ul class="proj-bullets">
+            <li>Trained SLEAP deep learning models to track rat body keypoints across behavioral video recordings</li>
+            <li>Computed frame-by-frame velocity and movement trajectories from pose coordinate time series</li>
+            <li>Classified scanning and darting behaviors using kinematic signatures to replace manual hand-scoring</li>
+            <li>Built an automated, reproducible pipeline to enable scalable batch processing of behavioral experiments
+            </li>
+          </ul>
+          <div class="proj-date">2025 – 2026</div>
+        </div>
       </div>
       <div class="proj-card">
         <div class="proj-tag">Computational Neuroscience · Signal Processing</div>
